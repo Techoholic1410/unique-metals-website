@@ -158,7 +158,6 @@ details p{margin:.8rem 0 0;color:var(--muted)}
 .foot-grid a:hover{color:var(--gold)}
 .foot-grid address{margin-bottom:.7rem}
 .legal{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid #2a2a2a;padding:1.3rem 0;font-size:.78rem}
-.wa-float{position:fixed;right:18px;bottom:18px;background:#25d366;color:#fff;padding:.75rem 1.1rem;border-radius:99px;font-weight:600;font-size:.8rem;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:60;display:flex;gap:.5rem;align-items:center}
 
 @media(max-width:900px){
   .hero-grid,.split,.prod,.contact-grid{grid-template-columns:1fr;gap:2rem}
@@ -188,7 +187,6 @@ details p{margin:.8rem 0 0;color:var(--muted)}
   .brand img{height:46px}
   .row2{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr}
-  .wa-float span{display:none}.wa-float{padding:.9rem}
   .clist li{grid-template-columns:1fr;gap:.2rem}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

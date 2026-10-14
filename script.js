@@ -1,4 +1,4 @@
-const WA_NUMBER = '910000000000'; // TODO: replace with the real WhatsApp number (country code + number, no +)
+const ENQUIRY_EMAIL = 'askus@uniquedecorativemetals.com';
 const btn = document.querySelector('.menu-btn'), menu = document.getElementById('menu');
 btn.addEventListener('click', () => btn.setAttribute('aria-expanded', menu.classList.toggle('open')));
 menu.addEventListener('click', e => { if (e.target.tagName === 'A') { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
@@ -18,6 +18,6 @@ if (form) {
     err.hidden = !!(d.name.trim() && d.phone.trim());
     if (!err.hidden) return;
     const text = `Hello Unique Decorative Metals,\nName: ${d.name}\nPhone: ${d.phone}\nCity: ${d.city || '-'}\nProduct: ${d.product}\nRequirement: ${d.msg || '-'}`;
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    location.href = `mailto:${ENQUIRY_EMAIL}?subject=${encodeURIComponent('Enquiry: ' + d.product)}&body=${encodeURIComponent(text)}`;
   });
 }

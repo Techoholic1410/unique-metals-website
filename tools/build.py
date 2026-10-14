@@ -5,8 +5,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import art
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = "https://techoholic1410.github.io/unique-metals-website/"
-PHONE_DISPLAY, PHONE_TEL, WA = "+91 00000 00000", "+910000000000", "910000000000"   # TODO real numbers
-EMAIL = "info@example.com"                                                            # TODO real email
+EMAIL = "askus@uniquedecorativemetals.com"
 ADDRESS = "Srinivasa Complex, 145-C, Raju Naidu Street,<br>Tatabad, Sivananda Colony,<br>Coimbatore - 641012, Tamil Nadu, India"
 
 NAV = [("index.html","Home"),("about.html","About"),("products.html","Products"),
@@ -35,7 +34,7 @@ def page(fname, title, desc, body, hero=None):
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="topbar"><div class="wrap"><span>Coimbatore · Supplying interior professionals across India</span><span><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></span></div></div>
+<div class="topbar"><div class="wrap"><span>Coimbatore · Supplying interior professionals across India</span><span><a href="mailto:{EMAIL}">{EMAIL}</a></span></div></div>
 <header class="site-header"><div class="wrap nav">
 <a href="index.html" class="brand" aria-label="Unique Decorative Metals home"><img src="assets/logo.png" alt="Unique Decorative Metals" width="222" height="96"></a>
 <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
@@ -48,9 +47,8 @@ def page(fname, title, desc, body, hero=None):
 <footer class="site-footer"><div class="wrap foot-grid">
 <div><img src="assets/logo-reverse.png" alt="Unique Decorative Metals" width="217" height="88"><p>Decorative interior metal solutions for designers, architects, contractors and dealers across India.</p></div>
 <div><h4>Explore</h4>{"".join(f'<a href="{h}">{t}</a>' for h,t in NAV)}</div>
-<div><h4>Contact</h4><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
+<div><h4>Contact</h4><address>{ADDRESS}</address><a href="mailto:{EMAIL}">{EMAIL}</a></div>
 </div><div class="wrap legal"><span>© <span id="yr">2026</span> Unique Decorative Metals. All rights reserved.</span><span>Coimbatore, Tamil Nadu, India</span></div></footer>
-<a class="wa-float" href="https://wa.me/{WA}" aria-label="Chat on WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.4-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.8 2.1 1.2 1 2.2 1.3 2.5 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.6.3.1.2.1.8-.1 1.4z"/></svg><span>WhatsApp</span></a>
 <script src="script.js"></script>
 </body>
 </html>
@@ -197,20 +195,18 @@ contact = f'''
 <div>
 <p class="eyebrow">Reach Us</p><h2>Contact details</h2>
 <ul class="clist">
-<li><b>Phone</b><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li>
-<li><b>WhatsApp</b><a href="https://wa.me/{WA}" target="_blank" rel="noopener">{PHONE_DISPLAY}</a></li>
 <li><b>Email</b><a href="mailto:{EMAIL}">{EMAIL}</a></li>
 <li><b>Address</b><address>{ADDRESS}</address></li>
 </ul>
 <div class="map"><iframe title="Map to Unique Decorative Metals, Coimbatore" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Srinivasa+Complex+Raju+Naidu+Street+Tatabad+Coimbatore+641012&amp;output=embed"></iframe></div>
 </div>
-<div id="enquiry" class="formcard"><h2>Request a quote</h2><p>Share your requirement. This opens WhatsApp with your details filled in.</p>
+<div id="enquiry" class="formcard"><h2>Request a quote</h2><p>Share your requirement. This opens your email app with your details filled in.</p>
 <form id="enquiry-form" novalidate>
 <div class="row2"><label>Name<input name="name" required autocomplete="name"></label><label>Phone<input name="phone" type="tel" required autocomplete="tel"></label></div>
 <div class="row2"><label>City<input name="city" autocomplete="address-level2"></label>
 <label>Product<select name="product"><option>PVD / Pad Coated Sheets</option><option>Mirror Frames</option><option>Etched &amp; Textured Sheets</option><option>Profiles &amp; Accessories</option><option>Other</option></select></label></div>
 <label>Requirement (finish, size, quantity)<textarea name="msg" rows="4"></textarea></label>
-<button class="btn" type="submit">Send via WhatsApp</button><p class="form-err" role="alert" hidden>Please enter your name and phone.</p>
+<button class="btn" type="submit">Send Enquiry</button><p class="form-err" role="alert" hidden>Please enter your name and phone.</p>
 </form></div></div></section>
 <section class="section alt"><div class="wrap narrow">
 <div class="sec-head"><p class="eyebrow">FAQ</p><h2>Common questions</h2></div>
@@ -218,7 +214,7 @@ contact = f'''
 <details><summary>Can I get samples before ordering?</summary><p>Yes. Contact us with the finishes you are considering and we will arrange samples.</p></details>
 <details><summary>Do you offer custom sizes and finishes?</summary><p>We source custom sizes and finishes against your requirement. Share the details for a quotation.</p></details>
 <details><summary>Do you sell to individuals or only the trade?</summary><p>We primarily serve designers, architects, contractors and dealers. Contact us to discuss your requirement.</p></details>
-<details><summary>How do I get a price?</summary><p>Send your requirement through the form or WhatsApp and we will respond with a quotation.</p></details>
+<details><summary>How do I get a price?</summary><p>Send your requirement through the form or by email and we will respond with a quotation.</p></details>
 </div></section>
 '''
 
@@ -228,7 +224,7 @@ pages = {
  "products.html": ("Products | PVD Coated Sheets & Mirror Frames | Unique Decorative Metals","Explore PVD / pad coated sheets, mirror frames, etched and textured sheets, profiles and accessories.",products,("Products","Our Range","Products","Decorative metal sheets, frames and accessories for premium interiors.")),
  "finishes.html": ("Finishes & Colours | Unique Decorative Metals","Gold, rose gold, black, bronze, champagne, silver, copper and mirror finishes in a range of textures.",finishes,("Finishes","Finishes","Finishes &amp; Colours","Colours and textures to match every design language.")),
  "applications.html": ("Applications | Unique Decorative Metals","Decorative metals for wall cladding, lift interiors, furniture, ceilings, partitions, mirrors, retail and hospitality.",applications,("Applications","Applications","Where our metals go","Residential and commercial uses across the interior industry.")),
- "contact.html": ("Contact & Quote | Unique Decorative Metals","Contact Unique Decorative Metals in Coimbatore for pricing, samples and enquiries. Request a quote via form or WhatsApp.",contact,("Contact","Contact","Let's talk about your project","Request a quote, samples or advice from our Coimbatore team.")),
+ "contact.html": ("Contact & Quote | Unique Decorative Metals","Contact Unique Decorative Metals in Coimbatore for pricing, samples and enquiries. Request a quote by form or email.",contact,("Contact","Contact","Let's talk about your project","Request a quote, samples or advice from our Coimbatore team.")),
 }
 for f,(t,d,b,h) in pages.items():
     (ROOT/f).write_text(page(f,t,d,b,h), encoding="utf-8")
