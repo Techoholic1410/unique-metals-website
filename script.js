@@ -5,16 +5,19 @@ menu.addEventListener('click', e => { if (e.target.tagName === 'A') { menu.class
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 const form = document.getElementById('enquiry-form');
-document.querySelectorAll('[data-product]').forEach(a => a.addEventListener('click', () => {
-  const opt = [...form.product.options].find(o => o.text === a.dataset.product);
-  if (opt) form.product.value = opt.value || opt.text;
-}));
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  const d = Object.fromEntries(new FormData(form));
-  const err = form.querySelector('.form-err');
-  err.hidden = !!(d.name.trim() && d.phone.trim());
-  if (!err.hidden) return;
-  const text = `Hello Unique Decorative Metals,\nName: ${d.name}\nPhone: ${d.phone}\nCity: ${d.city || '-'}\nProduct: ${d.product}\nRequirement: ${d.msg || '-'}`;
-  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-});
+if (form) {
+  const want = new URLSearchParams(location.search).get('product');
+  if (want) {
+    const opt = [...form.product.options].find(o => o.text === want);
+    if (opt) form.product.value = opt.value;
+  }
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    const err = form.querySelector('.form-err');
+    err.hidden = !!(d.name.trim() && d.phone.trim());
+    if (!err.hidden) return;
+    const text = `Hello Unique Decorative Metals,\nName: ${d.name}\nPhone: ${d.phone}\nCity: ${d.city || '-'}\nProduct: ${d.product}\nRequirement: ${d.msg || '-'}`;
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  });
+}
