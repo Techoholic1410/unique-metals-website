@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Generates the static pages. Run: python3 tools/build.py  (from repo root)."""
-import pathlib
+import pathlib, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import art
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = "https://techoholic1410.github.io/unique-metals-website/"
 PHONE_DISPLAY, PHONE_TEL, WA = "+91 00000 00000", "+910000000000", "910000000000"   # TODO real numbers
@@ -24,7 +26,7 @@ def page(fname, title, desc, body, hero=None):
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#111111">
 <link rel="canonical" href="{BASE}{'' if fname=='index.html' else fname}">
-<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}assets/logo-light.jpg">
+<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}assets/logo.png">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
@@ -35,7 +37,7 @@ def page(fname, title, desc, body, hero=None):
 <a class="skip" href="#main">Skip to content</a>
 <div class="topbar"><div class="wrap"><span>Coimbatore · Supplying interior professionals across India</span><span><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></span></div></div>
 <header class="site-header"><div class="wrap nav">
-<a href="index.html" class="brand" aria-label="Unique Decorative Metals home"><img src="assets/logo-light.jpg" alt="Unique Decorative Metals" width="140" height="64"></a>
+<a href="index.html" class="brand" aria-label="Unique Decorative Metals home"><img src="assets/logo.png" alt="Unique Decorative Metals" width="222" height="96"></a>
 <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
 <nav id="menu" class="menu" aria-label="Main">{nav}<a href="contact.html#enquiry" class="btn btn-sm">Get a Quote</a></nav>
 </div></header>
@@ -44,7 +46,7 @@ def page(fname, title, desc, body, hero=None):
 </main>
 <section class="cta-band"><div class="wrap"><div><h2>Planning an interior project?</h2><p>Share your requirement and we'll respond with pricing, availability and samples.</p></div><a class="btn" href="contact.html#enquiry">Request a Quote</a></div></section>
 <footer class="site-footer"><div class="wrap foot-grid">
-<div><img src="assets/logo-dark.jpg" alt="Unique Decorative Metals" width="200" height="92"><p>Decorative interior metal solutions for designers, architects, contractors and dealers across India.</p></div>
+<div><img src="assets/logo-reverse.png" alt="Unique Decorative Metals" width="217" height="88"><p>Decorative interior metal solutions for designers, architects, contractors and dealers across India.</p></div>
 <div><h4>Explore</h4>{"".join(f'<a href="{h}">{t}</a>' for h,t in NAV)}</div>
 <div><h4>Contact</h4><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a><a href="mailto:{EMAIL}">{EMAIL}</a></div>
 </div><div class="wrap legal"><span>© <span id="yr">2026</span> Unique Decorative Metals. All rights reserved.</span><span>Coimbatore, Tamil Nadu, India</span></div></footer>
@@ -54,13 +56,8 @@ def page(fname, title, desc, body, hero=None):
 </html>
 '''
 
-def swatch(name, grad): return f'<div class="sw"><i style="--c:{grad}"></i><b>{name}</b></div>'
-SW = [("Gold","linear-gradient(135deg,#f0d683,#b8902f 55%,#e6c872)"),("Rose Gold","linear-gradient(135deg,#f6cdbd,#c98467 55%,#eab7a2)"),
-      ("Black","linear-gradient(135deg,#3a3a3a,#050505 60%,#222)"),("Bronze","linear-gradient(135deg,#d4b48a,#7a5a36 60%,#b08a5c)"),
-      ("Champagne","linear-gradient(135deg,#f5ead0,#cdb98a 60%,#eadcb4)"),("Silver","linear-gradient(135deg,#fafafa,#9a9a9a 55%,#dcdcdc)"),
-      ("Copper","linear-gradient(135deg,#b9784f,#3e2415 65%,#8b5a3c)"),("Mirror","linear-gradient(135deg,#d9d9d9,#fff 40%,#a8a8a8 70%,#efefef)")]
-def swatches(): return '<div class="swatches">'+"".join(swatch(*s) for s in SW)+'</div>'
 
+swatches=art.swatches
 # ---------------- HOME ----------------
 home = f'''
 <section class="hero"><div class="wrap hero-grid">
@@ -68,7 +65,7 @@ home = f'''
 <h1>Metal finishes that give <em>interiors</em> their signature.</h1>
 <p class="lead">We trade and supply PVD / pad coated sheets, mirror frames and decorative metal solutions to interior designers, architects, contractors and dealers across India.</p>
 <div class="cta-row"><a href="contact.html#enquiry" class="btn">Request a Quote</a><a href="products.html" class="btn btn-ghost">Explore Products</a></div></div>
-<div class="hero-art" aria-hidden="true"><div class="panel p1"></div><div class="panel p2"></div><div class="panel p3"></div></div>
+<div class="hero-art" aria-hidden="true">{"".join(f'<figure style="--o:{n}">{art.sheet(k)}<figcaption>{t}</figcaption></figure>' for n,(k,t) in enumerate([("gold","Gold"),("rose","Rose Gold"),("black","Black"),("champagne","Champagne")]))}</div>
 </div></section>
 
 <section class="trust"><div class="wrap trust-grid">
@@ -78,10 +75,10 @@ home = f'''
 <section class="section"><div class="wrap">
 <div class="sec-head"><p class="eyebrow">Our Range</p><h2>Decorative solutions for every interior</h2><p>From wall cladding to mirror frames, one dependable source for the finishes your designs call for.</p></div>
 <div class="grid cards">
-<article class="card"><div class="thumb t-gold" role="img" aria-label="Gold PVD coated sheet"></div><div class="card-body"><h3>PVD / Pad Coated Sheets</h3><p>Durable coloured stainless steel sheets for walls, lifts, furniture and ceilings.</p><a class="link" href="products.html#sheets">View details →</a></div></article>
-<article class="card"><div class="thumb t-mirror" role="img" aria-label="Metal mirror frame"></div><div class="card-body"><h3>Mirror Frames</h3><p>Premium metal frames and profiles for decorative and bathroom mirrors.</p><a class="link" href="products.html#frames">View details →</a></div></article>
-<article class="card"><div class="thumb t-brush" role="img" aria-label="Brushed metal texture"></div><div class="card-body"><h3>Etched &amp; Textured Sheets</h3><p>Hairline, etched and embossed surfaces that add depth to feature walls.</p><a class="link" href="products.html#textured">View details →</a></div></article>
-<article class="card"><div class="thumb t-profile" role="img" aria-label="Decorative profiles"></div><div class="card-body"><h3>Profiles &amp; Accessories</h3><p>Trims, inlays and fittings matched to your sheet finish.</p><a class="link" href="products.html#profiles">View details →</a></div></article>
+<article class="card"><div class="thumb">{art.sheet("gold")}</div><div class="card-body"><h3>PVD / Pad Coated Sheets</h3><p>Durable coloured stainless steel sheets for walls, lifts, furniture and ceilings.</p><a class="link" href="products.html#sheets">View details →</a></div></article>
+<article class="card"><div class="thumb">{art.mirror()}</div><div class="card-body"><h3>Mirror Frames</h3><p>Premium metal frames and profiles for decorative and bathroom mirrors.</p><a class="link" href="products.html#frames">View details →</a></div></article>
+<article class="card"><div class="thumb">{art.tex("hair")}</div><div class="card-body"><h3>Etched &amp; Textured Sheets</h3><p>Hairline, etched and embossed surfaces that add depth to feature walls.</p><a class="link" href="products.html#textured">View details →</a></div></article>
+<article class="card"><div class="thumb">{art.profiles()}</div><div class="card-body"><h3>Profiles &amp; Accessories</h3><p>Trims, inlays and fittings matched to your sheet finish.</p><a class="link" href="products.html#profiles">View details →</a></div></article>
 </div></div></section>
 
 <section class="section dark"><div class="wrap">
@@ -131,10 +128,11 @@ def prod(id_, cls, title, body, points, finishes, alt=False):
     li = "".join(f"<li>{p}</li>" for p in points)
     tg = "".join(f"<li>{f}</li>" for f in finishes)
     return f'''<section id="{id_}" class="section{' alt' if alt else ''}"><div class="wrap prod{' rev' if alt else ''}">
-<div class="thumb big {cls}" role="img" aria-label="{title}"></div>
+<div class="thumb big">{ART[cls]}</div>
 <div><p class="eyebrow">Product</p><h2>{title}</h2><p>{body}</p><ul class="ticks">{li}</ul><ul class="tags">{tg}</ul>
 <a class="btn" href="contact.html?product={title.replace(' ','%20').replace('&amp;','%26')}#enquiry">Enquire about this</a></div></div></section>'''
 
+ART={'t-gold':art.sheet('gold'),'t-mirror':art.mirror(),'t-brush':art.tex('hair'),'t-profile':art.profiles()}
 products = (
  prod("sheets","t-gold","PVD / Pad Coated Sheets","Coloured stainless steel sheets finished with PVD or pad coating for a rich, lasting metallic look. A favourite for premium interiors.",
       ["Wall cladding, lift cabins, column wraps and ceilings","Furniture, partitions and door panels","Wide choice of colours and surface patterns","Sizes and thicknesses on request"],["Gold","Rose Gold","Black","Bronze","Champagne"]) +
@@ -166,9 +164,9 @@ finishes = f'''
 <section class="section"><div class="wrap">
 <div class="sec-head"><p class="eyebrow">Surface Textures</p><h2>Choose the feel as well as the colour</h2></div>
 <div class="grid cards-3">
-<div class="info"><div class="tex tx-mirror"></div><h3>Mirror</h3><p>High-gloss, reflective surface that amplifies light and luxury.</p></div>
-<div class="info"><div class="tex tx-hair"></div><h3>Hairline / Brushed</h3><p>Fine linear grain with a soft satin look that hides fingerprints.</p></div>
-<div class="info"><div class="tex tx-etch"></div><h3>Etched &amp; Embossed</h3><p>Patterned surfaces for dramatic feature walls and furniture.</p></div>
+<div class="info"><div class="tex">{art.tex("mirror")}</div><h3>Mirror</h3><p>High-gloss, reflective surface that amplifies light and luxury.</p></div>
+<div class="info"><div class="tex">{art.tex("hair")}</div><h3>Hairline / Brushed</h3><p>Fine linear grain with a soft satin look that hides fingerprints.</p></div>
+<div class="info"><div class="tex">{art.tex("etch")}</div><h3>Etched &amp; Embossed</h3><p>Patterned surfaces for dramatic feature walls and furniture.</p></div>
 </div></div></section>
 <section class="section alt"><div class="wrap split">
 <div><p class="eyebrow">Samples</p><h2>See it before you specify it</h2></div>
